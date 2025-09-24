@@ -1,3 +1,5 @@
+# Exercise 3 Circle Calculations and Pythagorean Theorem
+
 # import math
 
 # radius = float(input(f'Enter the radius of a circle: '))

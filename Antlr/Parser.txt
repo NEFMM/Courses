@@ -1,0 +1,96 @@
+parser grammar ExprParser;
+options { tokenVocab=ExprLexer; }
+
+program
+    : cabecalhoDec criarVar 
+      cabecalhoAlg corpoAlg EOF
+    ;
+
+cabecalhoDec
+    : DELIM CABECALHO_DEC
+    ;
+
+cabecalhoAlg
+    : DELIM CABECALHO_ALG
+    ;
+
+criarVar
+    : decVar criarVar
+    | decArray criarVar
+    | decMatriz criarVar
+    | decVar
+    | decArray
+    | decMatriz
+    | 
+    ;
+
+decVar
+    : ID DELIM TIPO_VAR SEMI
+    ;
+
+decArray
+    : ID DELIM DEC_ARRAY SEMI
+    ;
+
+decMatriz
+    : ID DELIM DEC_MATRIZ SEMI
+    ;
+
+comandoLer
+    : LEITURA ID SEMI
+    ;
+
+comandoEscrever
+    : ESCREVER ID SEMI
+    ;
+
+equacao
+    : ID OP_EQ expr SEMI
+    ;
+
+expr
+    : expr OP_SOMA expr
+    | expr OP_SUB expr
+    | expr OP_MUL expr
+    | expr OP_DIV expr
+    | expr OP_POW expr
+    | expr OP_MOD expr
+    | (ID | INTEIRO | REAL)
+    ;
+
+comandoIf
+    : COND_SE exprCond COND_ENTAO 
+    ABRE_CHAV corpoAlg FECHA_CHAV
+    ;
+
+comandoIfElse
+    : COND_SE exprCond COND_ENTAO 
+    ABRE_CHAV corpoAlg FECHA_CHAV
+    COND_SENAO ABRE_CHAV corpoAlg FECHA_CHAV
+    ;
+
+comandoEnquanto
+    : LOOP_ENQUANTO exprCond 
+    ABRE_CHAV corpoAlg FECHA_CHAV
+    ;
+
+exprCond
+    : ID OP_EQ (ID | INTEIRO | REAL)
+    | ID OP_DIF (ID | INTEIRO | REAL)
+    | ID OP_COMP (ID | INTEIRO | REAL)
+    ;
+
+corpoAlg
+    : comandoLer corpoAlg
+    | comandoEscrever corpoAlg
+    | equacao corpoAlg
+    | comandoIf corpoAlg
+    | comandoIfElse corpoAlg
+    | comandoEnquanto corpoAlg
+    | comandoLer
+    | comandoEscrever
+    | equacao
+    | comandoIf
+    | comandoIfElse
+    | comandoEnquanto
+    ;
