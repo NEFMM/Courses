@@ -48,7 +48,7 @@ agenda = Agenda()
 agenda.addContact("Alice", "123-456-7890", "Alice@example.com")
 agenda.addContact("Bob", "987-654-3210", "bob@example.com")
 
-agenda.searchContact("Bob")
+agenda.searchContact("Bob"z)
 
 agenda.removeContact("Alice")
 agenda.listContacts()
