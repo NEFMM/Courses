@@ -18,6 +18,16 @@ for key, value in menu.items():
 print("-----------------")
 
 while True:
-    food = input("Select an item (q to Quit): ")
-    if food.lower == "q":
+    food = input("Select an item (q to Quit): ").lower()
+    if food == "q":
         break
+    elif menu.get(food) is not None:
+        cart.append(food)
+
+print("--")
+for food in cart:
+    total += menu.get(food)
+    print(food, end=" ")
+
+print()
+print(f"Total is: ${total:.2f}")
